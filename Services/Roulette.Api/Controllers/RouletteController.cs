@@ -23,7 +23,7 @@ namespace Roulette.Api.Controllers
         [HttpPatch("{id}")]
         public async Task<ActionResult> Open(string id)
         {
-            string state = "CLOSE";
+            string state = "OPEN";
             try{
                 await _repository.UpdateState(id, state);
                 return NoContent();
