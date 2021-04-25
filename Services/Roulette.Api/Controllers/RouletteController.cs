@@ -1,17 +1,40 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Roulette.Api.Models;
 
 namespace Roulette.Api.Controllers
 {
     [ApiController]
-    [Route("roulettes")]
+    [Route("api/roulettes")]
     public class RouletteController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<List<Roulette.Api.Models.Roulette>> GetAll()
+        private readonly IRouletteRepository _repository;
+        public RouletteController(IRouletteRepository repository)
         {
-            return new List<Roulette.Api.Models.Roulette>();
+            _repository = repository;
+        }
+        [HttpPost]
+        public async Task<ActionResult<string>> Create(Roulette.Api.Models.Roulette roulette)
+        {
+            return await _repository.Add(roulette);
+        }
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> Open(string id)
+        {
+            string state = "CLOSE";
+            try{
+                await _repository.UpdateState(id, state);
+                return NoContent();
+            } catch(Exception ex){
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Roulette.Api.Models.Roulette>>> GetAll()
+        {
+            return await _repository.GetAll();
         }
     }
 }
