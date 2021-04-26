@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Roulette.Api.Models;
 
-namespace Roulette.Api.Models
+namespace Roulette.Api.Repositories
 {
     public interface IBetRepository
     {

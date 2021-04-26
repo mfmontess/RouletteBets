@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Roulette.Api.Models;
+using Roulette.Api.Repositories;
 
 namespace Roulette.Api.Controllers
 {

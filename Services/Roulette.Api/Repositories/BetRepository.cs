@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using Roulette.Api.Models;
 
-namespace Roulette.Api.Models
+namespace Roulette.Api.Repositories
 {
     public class BetRepository : IBetRepository
     {
