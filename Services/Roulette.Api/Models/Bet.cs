@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 namespace Roulette.Api.Models
@@ -17,6 +18,7 @@ namespace Roulette.Api.Models
         [BsonRepresentation(BsonType.ObjectId)]
         [Required (ErrorMessage = "el campo 'rouletteId' es requerido")]
         public string rouletteId { get; set; }
+        [JsonIgnore]
         public Roulette roulette{
             get {
                 return new RouletteRepository().Get(rouletteId).Result;
@@ -24,6 +26,7 @@ namespace Roulette.Api.Models
         }
         public string userId { get; set; }
         public string state { get; set; }
+        [JsonIgnore]
         public bool IsValid { 
             get{
                 return (IsColorValid(color) || number > 0);
