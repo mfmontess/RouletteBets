@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  mongo:
+    container_name: roulettedb
+    image: mongo
+    restart: always
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/site:/data/db
+    ports:
+      - "27017:27017"
+  rouletteapi:
+    image: rouletteapi
+    build:
+      context: .
+      dockerfile: Services/Roulette.Api/Dockerfile
+    ports:
+      - 8080
+    depends_on:
+      - mongo
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https:/root/.aspnet/https/
+    links:
+      - mongo
