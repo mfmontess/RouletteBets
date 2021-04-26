@@ -16,5 +16,11 @@ namespace Roulette.Api.Models
                 return _mongodb.GetCollection<Roulette>("Roulettes");
             }
         }
+        public IMongoCollection<Bet> Bets
+        {
+            get{
+                return _mongodb.GetCollection<Bet>("Bets");
+            }
+        }
     }
 }

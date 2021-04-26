@@ -27,6 +27,7 @@ namespace Roulette.Api
         {
             services.AddControllers();
             services.AddScoped<IRouletteRepository, RouletteRepository>();
+            services.AddScoped<IBetRepository, BetRepository>();
             services.AddSingleton<MongoDBContext>();
         }
 
