@@ -18,6 +18,7 @@ namespace Roulette.Api.Models
         [BsonRepresentation(BsonType.ObjectId)]
         [Required (ErrorMessage = "el campo 'rouletteId' es requerido")]
         public string rouletteId { get; set; }
+        public decimal earnedValue { get; set; }
         [JsonIgnore]
         public Roulette roulette{
             get {
