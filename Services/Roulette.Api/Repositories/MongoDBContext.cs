@@ -6,9 +6,9 @@ namespace Roulette.Api.Repositories
     public class MongoDBContext
     {
         private readonly IMongoDatabase _mongodb;
-        public MongoDBContext()
+        public MongoDBContext(IConnection _connection)
         {
-            var client = new MongoClient("mongodb://localhost:27017/");
+            var client = new MongoClient(_connection.MongoDBStrings);
             _mongodb = client.GetDatabase("RouletteBetsDB");
         }
         public IMongoCollection<Roulette.Api.Models.Roulette> Roulettes

@@ -6,7 +6,10 @@ namespace Roulette.Api.Repositories
 {
     public class RouletteRepository : IRouletteRepository
     {
-        private MongoDBContext db = new MongoDBContext();
+        private MongoDBContext db;
+        public RouletteRepository(IConnection connection){
+            db = new MongoDBContext(connection);
+        }
         public async Task<string> Add(Roulette.Api.Models.Roulette roulette)
         {
             await db.Roulettes.InsertOneAsync(roulette);

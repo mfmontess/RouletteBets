@@ -12,9 +12,11 @@ namespace Roulette.Api.Controllers
     public class BetController : ControllerBase
     {
         private readonly IBetRepository _repository;
-        public BetController(IBetRepository repository)
+        private readonly IConnection _connection;
+        public BetController(IBetRepository repository, IConnection connection)
         {
             _repository = repository;
+            _connection = connection;
         }
         [HttpPost]
         public async Task<ActionResult<Bet>> Create(Bet bet)
@@ -32,7 +34,7 @@ namespace Roulette.Api.Controllers
         public async Task<ActionResult<IEnumerable<Bet>>> Close([FromQuery] string rouletteId)
         {
             var bets = await _repository.GetByRouletteId(rouletteId);
-            await new RouletteRepository().UpdateState(rouletteId, "CLOSED");
+            await new RouletteRepository(_connection).UpdateState(rouletteId, "CLOSED");
             CalculateWinners(bets);
             bets.ForEach(x => _repository.Update(x));
             return bets;
@@ -61,7 +63,8 @@ namespace Roulette.Api.Controllers
         }
         private bool IsRouletteAvailable(Bet bet)
         {
-            return string.Equals(bet.roulette.state,"OPEN");
+            Models.Roulette roulette = new RouletteRepository(_connection).Get(bet.rouletteId).Result;
+            return string.Equals(roulette.state,"OPEN");
         }
         private bool isAuthorized(){
             string headerValue = string.Empty;

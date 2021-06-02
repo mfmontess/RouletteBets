@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Roulette.Api.Repositories;
+using Microsoft.Extensions.Options;
 
 namespace Roulette.Api
 {
@@ -17,9 +18,10 @@ namespace Roulette.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.Configure<Connection>(Configuration.GetSection("Connections"));
+            services.AddSingleton<IConnection>(d=> d.GetRequiredService<IOptions<Connection>>().Value);
             services.AddScoped<IRouletteRepository, RouletteRepository>();
             services.AddScoped<IBetRepository, BetRepository>();
-            services.AddSingleton<MongoDBContext>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

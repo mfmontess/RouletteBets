@@ -7,7 +7,10 @@ namespace Roulette.Api.Repositories
 {
     public class BetRepository : IBetRepository
     {
-        private MongoDBContext db = new MongoDBContext();
+        private MongoDBContext db;
+        public BetRepository(IConnection connection){
+            db = new MongoDBContext(connection);
+        }
         public async Task<Bet> Add(Bet bet)
         {
             await db.Bets.InsertOneAsync(bet);

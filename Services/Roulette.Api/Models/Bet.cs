@@ -21,12 +21,6 @@ namespace Roulette.Api.Models
         [Required (ErrorMessage = "el campo 'rouletteId' es requerido")]
         public string rouletteId { get; set; }
         public decimal earnedValue { get; set; }
-        [JsonIgnore]
-        public Roulette roulette{
-            get {
-                return new RouletteRepository().Get(rouletteId).Result;
-            }
-        }
         public string userId { get; set; }
         public string state { get; set; }
         [JsonIgnore]

@@ -18,6 +18,7 @@ namespace Roulette.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> Create(Roulette.Api.Models.Roulette roulette)
         {
+            roulette.state = "OPEN";
             return await _repository.Add(roulette);
         }
         [HttpPatch("{id}")]
