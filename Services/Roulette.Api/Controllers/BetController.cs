@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Roulette.Api.Models;
-using Roulette.Api.Repositories;
-
-namespace Roulette.Api.Controllers
+using RouletteBets.Api.Models;
+using RouletteBets.Api.Repositories;
+namespace RouletteBets.Api.Controllers
 {
     [ApiController]
     [Route("api/bets")]

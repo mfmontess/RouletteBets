@@ -1,4 +1,4 @@
-namespace Roulette.Api.Models
+namespace RouletteBets.Api.Models
 {
     public interface IConnection
     {

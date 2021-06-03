@@ -2,9 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using Roulette.Api.Repositories;
-
-namespace Roulette.Api.Models
+namespace RouletteBets.Api.Models
 {
     public class Bet
     {

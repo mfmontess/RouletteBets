@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
-using Roulette.Api.Models;
-
-namespace Roulette.Api.Repositories
+using RouletteBets.Api.Models;
+namespace RouletteBets.Api.Repositories
 {
     public class BetRepository : IBetRepository
     {
@@ -14,6 +13,7 @@ namespace Roulette.Api.Repositories
         public async Task<Bet> Add(Bet bet)
         {
             await db.Bets.InsertOneAsync(bet);
+
             return bet;
         }
 

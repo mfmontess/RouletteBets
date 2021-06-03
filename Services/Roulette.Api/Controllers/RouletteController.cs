@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Roulette.Api.Repositories;
+using RouletteBets.Api.Models;
+using RouletteBets.Api.Repositories;
 
-namespace Roulette.Api.Controllers
+namespace RouletteBets.Api.Controllers
 {
     [ApiController]
     [Route("api/roulettes")]
@@ -16,9 +17,10 @@ namespace Roulette.Api.Controllers
             _repository = repository;
         }
         [HttpPost]
-        public async Task<ActionResult<string>> Create(Roulette.Api.Models.Roulette roulette)
+        public async Task<ActionResult<string>> Create(Roulette roulette)
         {
             roulette.state = "OPEN";
+
             return await _repository.Add(roulette);
         }
         [HttpPatch("{id}")]
@@ -27,13 +29,14 @@ namespace Roulette.Api.Controllers
             string state = "OPEN";
             try{
                 await _repository.UpdateState(id, state);
+
                 return NoContent();
             } catch(Exception ex){
                 return BadRequest(ex.Message);
             }
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Roulette.Api.Models.Roulette>>> GetAll()
+        public async Task<ActionResult<IEnumerable<Roulette>>> GetAll()
         {
             return await _repository.GetAll();
         }

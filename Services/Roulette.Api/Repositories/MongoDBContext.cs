@@ -1,7 +1,6 @@
 using MongoDB.Driver;
-using Roulette.Api.Models;
-
-namespace Roulette.Api.Repositories
+using RouletteBets.Api.Models;
+namespace RouletteBets.Api.Repositories
 {
     public class MongoDBContext
     {
@@ -11,10 +10,10 @@ namespace Roulette.Api.Repositories
             var client = new MongoClient(_connection.MongoDBStrings);
             _mongodb = client.GetDatabase("RouletteBetsDB");
         }
-        public IMongoCollection<Roulette.Api.Models.Roulette> Roulettes
+        public IMongoCollection<Roulette> Roulettes
         {
             get{
-                return _mongodb.GetCollection<Roulette.Api.Models.Roulette>("Roulettes");
+                return _mongodb.GetCollection<Roulette>("Roulettes");
             }
         }
         public IMongoCollection<Bet> Bets

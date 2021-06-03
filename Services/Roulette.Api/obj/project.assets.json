@@ -454,9 +454,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\MICHAEL\\Developments\\RouletteBets\\Services\\Roulette.Api\\Roulette.Api.csproj",
-      "projectName": "Roulette.Api",
-      "projectPath": "D:\\MICHAEL\\Developments\\RouletteBets\\Services\\Roulette.Api\\Roulette.Api.csproj",
+      "projectUniqueName": "D:\\MICHAEL\\Developments\\RouletteBets\\Services\\Roulette.Api\\RouletteBets.Api.csproj",
+      "projectName": "RouletteBets.Api",
+      "projectPath": "D:\\MICHAEL\\Developments\\RouletteBets\\Services\\Roulette.Api\\RouletteBets.Api.csproj",
       "packagesPath": "C:\\Users\\MICHAEL\\.nuget\\packages\\",
       "outputPath": "D:\\MICHAEL\\Developments\\RouletteBets\\Services\\Roulette.Api\\obj\\",
       "projectStyle": "PackageReference",
@@ -473,7 +473,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -485,7 +484,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "MongoDB.Driver": {
             "target": "Package",
@@ -502,16 +500,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[3.1.10, 3.1.10]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[3.1.14, 3.1.14]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -520,7 +508,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

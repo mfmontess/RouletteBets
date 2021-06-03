@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Roulette.Api.Repositories;
+using RouletteBets.Api.Repositories;
 using Microsoft.Extensions.Options;
-
-namespace Roulette.Api
+using RouletteBets.Api.Models;
+namespace RouletteBets.Api
 {
     public class Startup
     {
@@ -18,8 +18,8 @@ namespace Roulette.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.Configure<Roulette.Api.Models.Connection>(Configuration.GetSection("Connections"));
-            services.AddSingleton<Roulette.Api.Models.IConnection>(d=> d.GetRequiredService<IOptions<Roulette.Api.Models.Connection>>().Value);
+            services.Configure<Connection>(Configuration.GetSection("Connections"));
+            services.AddSingleton<IConnection>(d=> d.GetRequiredService<IOptions<Connection>>().Value);
             services.AddScoped<IRouletteRepository, RouletteRepository>();
             services.AddScoped<IBetRepository, BetRepository>();
         }
