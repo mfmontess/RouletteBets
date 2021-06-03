@@ -18,8 +18,8 @@ namespace Roulette.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.Configure<Connection>(Configuration.GetSection("Connections"));
-            services.AddSingleton<IConnection>(d=> d.GetRequiredService<IOptions<Connection>>().Value);
+            services.Configure<Roulette.Api.Models.Connection>(Configuration.GetSection("Connections"));
+            services.AddSingleton<Roulette.Api.Models.IConnection>(d=> d.GetRequiredService<IOptions<Roulette.Api.Models.Connection>>().Value);
             services.AddScoped<IRouletteRepository, RouletteRepository>();
             services.AddScoped<IBetRepository, BetRepository>();
         }

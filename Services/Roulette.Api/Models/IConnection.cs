@@ -1,4 +1,7 @@
-public interface IConnection
+namespace Roulette.Api.Models
 {
-    string MongoDBStrings { get; set; }
+    public interface IConnection
+    {
+        string MongoDBStrings { get; set; }
+    }
 }

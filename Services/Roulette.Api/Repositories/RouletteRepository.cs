@@ -7,7 +7,7 @@ namespace Roulette.Api.Repositories
     public class RouletteRepository : IRouletteRepository
     {
         private MongoDBContext db;
-        public RouletteRepository(IConnection connection){
+        public RouletteRepository(Roulette.Api.Models.IConnection connection){
             db = new MongoDBContext(connection);
         }
         public async Task<string> Add(Roulette.Api.Models.Roulette roulette)
