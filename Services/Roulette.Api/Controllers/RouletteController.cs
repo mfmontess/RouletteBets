@@ -19,16 +19,15 @@ namespace RouletteBets.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> Create(Roulette roulette)
         {
-            roulette.state = "OPEN";
+            roulette.state = RouletteStatesEnum.OPEN;
 
             return await _repository.Add(roulette);
         }
         [HttpPatch("{id}")]
         public async Task<ActionResult> Open(string id)
         {
-            string state = "OPEN";
             try{
-                await _repository.UpdateState(id, state);
+                await _repository.UpdateState(id, RouletteStatesEnum.OPEN);
 
                 return NoContent();
             } catch(Exception ex){

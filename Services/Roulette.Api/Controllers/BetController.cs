@@ -24,7 +24,7 @@ namespace RouletteBets.Api.Controllers
                 return Unauthorized();
             if (!ModelState.IsValid || !bet.IsValid || !IsRouletteAvailable(bet))
                 return BadRequest();
-            bet.state = "PLAYING";
+            bet.state = BetStatesEnum.PLAYING;
             bet.userId = Request.Headers["Authorization"];
 
             return await _repository.Add(bet);
@@ -33,9 +33,10 @@ namespace RouletteBets.Api.Controllers
         public async Task<ActionResult<IEnumerable<Bet>>> Close([FromQuery] string rouletteId)
         {
             var bets = await _repository.GetByRouletteId(rouletteId);
-            await new RouletteRepository(_connection).UpdateState(rouletteId, "CLOSED");
+            await new RouletteRepository(_connection).UpdateState(rouletteId, RouletteStatesEnum.CLOSED);
             CalculateWinners(bets);
             bets.ForEach(x => _repository.Update(x));
+
             return bets;
         }
         private void CalculateWinners(List<Bet> bets)
@@ -44,13 +45,13 @@ namespace RouletteBets.Api.Controllers
             string colorWinner = CalculateColorWinner(numberWinner);
             foreach(Bet bet in bets){
                 if(bet.number == numberWinner){
-                    bet.state = "WINNER";
+                    bet.state = BetStatesEnum.WINNER;
                     bet.earnedValue = bet.value * 5;
                 } else if(string.Equals(colorWinner,bet.color)){
-                    bet.state = "WINNER";
+                    bet.state = BetStatesEnum.WINNER;
                     bet.earnedValue = bet.value * 1.8m;
                 } else
-                    bet.state = "PLAYED";
+                    bet.state = BetStatesEnum.PLAYED;
             }
         }
         private string CalculateColorWinner(int number)
@@ -62,8 +63,9 @@ namespace RouletteBets.Api.Controllers
         }
         private bool IsRouletteAvailable(Bet bet)
         {
-            Models.Roulette roulette = new RouletteRepository(_connection).Get(bet.rouletteId).Result;
-            return string.Equals(roulette.state,"OPEN");
+            Roulette roulette = new RouletteRepository(_connection).Get(bet.rouletteId).Result;
+
+            return Equals(roulette.state,RouletteStatesEnum.OPEN);
         }
         private bool isAuthorized(){
             string headerValue = string.Empty;

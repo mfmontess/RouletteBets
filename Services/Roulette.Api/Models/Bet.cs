@@ -20,7 +20,8 @@ namespace RouletteBets.Api.Models
         public string rouletteId { get; set; }
         public decimal earnedValue { get; set; }
         public string userId { get; set; }
-        public string state { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public BetStatesEnum state { get; set; }
         [JsonIgnore]
         public bool IsValid { 
             get{

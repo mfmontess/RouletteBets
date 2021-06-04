@@ -24,7 +24,7 @@ namespace RouletteBets.Api.Repositories
         {
             return await db.Roulettes.Find(x => true).ToListAsync();
         }
-        public async Task UpdateState(string id, string state)
+        public async Task UpdateState(string id, RouletteStatesEnum state)
         {
             var filter = Builders<Roulette>.Filter.Eq("id", id);
             var update = Builders<Roulette>.Update.Set("state", state);
