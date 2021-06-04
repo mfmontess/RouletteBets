@@ -8,7 +8,7 @@ namespace RouletteBets.Api.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string id { get; set; }
-        [Required (ErrorMessage = "el campo 'name' es requerido")]
+        [Required (ErrorMessage = "El campo 'name' es requerido")]
         public string name { get; set; }
         [BsonRepresentation(BsonType.String)]
         public RouletteStatesEnum state { get; set; }

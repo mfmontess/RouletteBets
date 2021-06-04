@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LCfA7PGTwdN7EIRx+2sAQIENrlUbCOOoNWKAAuvHMxXsNy1WW7ZmQF+EsXdsxgPt+5IOUQTZ38nCMeqFSTvUdA==",
+  "dgSpecHash": "neBUYS6MA4P8OeX8yXtJOBYBH7jYKF0w1Dk4KLEYXH1WArOLMb4LtQ792/YdgFDyqFiqzjh4u8Y5T4qZlwe8YA==",
   "success": true,
   "projectFilePath": "D:\\MICHAEL\\Developments\\RouletteBets\\Services\\Roulette.Api\\RouletteBets.Api.csproj",
   "expectedPackageFiles": [
@@ -20,9 +20,7 @@
     "C:\\Users\\MICHAEL\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.1.4\\swashbuckle.aspnetcore.swaggerui.6.1.4.nupkg.sha512",
     "C:\\Users\\MICHAEL\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\MICHAEL\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
-    "C:\\Users\\MICHAEL\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1\\system.text.encoding.codepages.4.5.1.nupkg.sha512",
-    "C:\\Users\\MICHAEL\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
-    "C:\\Users\\MICHAEL\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.14\\microsoft.netcore.app.host.win-x64.3.1.14.nupkg.sha512"
+    "C:\\Users\\MICHAEL\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1\\system.text.encoding.codepages.4.5.1.nupkg.sha512"
   ],
   "logs": []
 }

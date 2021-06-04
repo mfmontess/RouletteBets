@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RouletteBets.Api.Models;
@@ -12,20 +13,20 @@ namespace RouletteBets.Api.Controllers
     {
         private readonly IBetRepository _repository;
         private readonly IConnection _connection;
-        public BetController(IBetRepository repository, IConnection connection)
+        public BetController(IBetRepository betRepository, IConnection connection)
         {
-            _repository = repository;
+            _repository = betRepository;
             _connection = connection;
         }
         [HttpPost]
-        public async Task<ActionResult<Bet>> Create(Bet bet)
+        public async Task<ActionResult<Bet>> Create([FromHeader(Name = "Authorization")] string userId, Bet bet)
         {
-            if(!isAuthorized())
+            if (string.IsNullOrEmpty(userId))
                 return Unauthorized();
             if (!ModelState.IsValid || !bet.IsValid || !IsRouletteAvailable(bet))
                 return BadRequest();
             bet.state = BetStatesEnum.PLAYING;
-            bet.userId = Request.Headers["Authorization"];
+            bet.userId = userId;
 
             return await _repository.Add(bet);
         }
@@ -66,15 +67,6 @@ namespace RouletteBets.Api.Controllers
             Roulette roulette = new RouletteRepository(_connection).Get(bet.rouletteId).Result;
 
             return Equals(roulette.state,RouletteStatesEnum.OPEN);
-        }
-        private bool isAuthorized(){
-            string headerValue = string.Empty;
-            if (Request.Headers.ContainsKey("Authorization"))
-                headerValue = Request.Headers["Authorization"];
-            if (string.IsNullOrEmpty(headerValue))
-                return false;
-            else
-                return true;
         }
     }
 }

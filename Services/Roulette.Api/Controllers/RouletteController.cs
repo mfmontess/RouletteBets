@@ -19,6 +19,7 @@ namespace RouletteBets.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> Create(Roulette roulette)
         {
+            if (!ModelState.IsValid) return BadRequest();
             roulette.state = RouletteStatesEnum.OPEN;
 
             return await _repository.Add(roulette);
