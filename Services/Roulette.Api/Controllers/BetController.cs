@@ -11,32 +11,32 @@ namespace RouletteBets.Api.Controllers
     [Route("api/bets")]
     public class BetController : ControllerBase
     {
-        private readonly IBetRepository _repository;
-        private readonly IConnection _connection;
-        public BetController(IBetRepository betRepository, IConnection connection)
+        private readonly IBetRepository _betRepository;
+        private readonly IRouletteRepository _rouletteRepository;
+        public BetController(IBetRepository betRepository, IRouletteRepository rouletteRepository)
         {
-            _repository = betRepository;
-            _connection = connection;
+            _betRepository = betRepository;
+            _rouletteRepository = rouletteRepository;
         }
         [HttpPost]
         public async Task<ActionResult<Bet>> Create([FromHeader(Name = "Authorization")] string userId, Bet bet)
         {
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized();
-            if (!ModelState.IsValid || !bet.IsValid || !IsRouletteAvailable(bet))
+            if (!ModelState.IsValid || !bet.IsValid || !IsRouletteAvailable(bet.rouletteId))
                 return BadRequest();
             bet.state = BetStatesEnum.PLAYING;
             bet.userId = userId;
 
-            return await _repository.Add(bet);
+            return await _betRepository.Add(bet);
         }
         [HttpPut]
         public async Task<ActionResult<IEnumerable<Bet>>> Close([FromQuery] string rouletteId)
         {
-            var bets = await _repository.GetByRouletteId(rouletteId);
-            await new RouletteRepository(_connection).UpdateState(rouletteId, RouletteStatesEnum.CLOSED);
+            var bets = await _betRepository.GetByRouletteId(rouletteId);
+            await _rouletteRepository.UpdateState(rouletteId, RouletteStatesEnum.CLOSED);
             CalculateWinners(bets);
-            bets.ForEach(x => _repository.Update(x));
+            bets.ForEach(x => _betRepository.Update(x));
 
             return bets;
         }
@@ -62,9 +62,9 @@ namespace RouletteBets.Api.Controllers
             else
                 return "negro";
         }
-        private bool IsRouletteAvailable(Bet bet)
+        private bool IsRouletteAvailable(string rouletteId)
         {
-            Roulette roulette = new RouletteRepository(_connection).Get(bet.rouletteId).Result;
+            Roulette roulette = _rouletteRepository.Get(rouletteId).Result;
 
             return Equals(roulette.state,RouletteStatesEnum.OPEN);
         }
